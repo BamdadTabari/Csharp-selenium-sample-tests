@@ -1,0 +1,70 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+out/
+Debug/
+Release/
+
+## .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+*.psmdcp
+packages/
+*.nuget.props
+*.nuget.targets
+
+## Selenium Drivers
+# If you're keeping drivers in project folder
+chromedriver.exe
+geckodriver.exe
+msedgedriver.exe
+
+# OR ignore driver folders
+Drivers/
+drivers/
+
+## Test Results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Logs
+*.log
+
+## IDE specific
+# Rider
+.idea/
+# VS Code
+.vscode/
+*.code-workspace
+
+## OS files
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+
+# Ignore all DLL files
+*.dll

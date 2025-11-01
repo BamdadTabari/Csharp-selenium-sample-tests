@@ -164,3 +164,4 @@ C:\Users\ill\Desktop\workspace\1-Mine\7-Csharp-selenium-sample\UiTests\obj\Debug
 C:\Users\ill\Desktop\workspace\1-Mine\7-Csharp-selenium-sample\UiTests\obj\Debug\net10.0\UiTests.pdb
 C:\Users\ill\Desktop\workspace\1-Mine\7-Csharp-selenium-sample\UiTests\obj\Debug\net10.0\UiTests.genruntimeconfig.cache
 C:\Users\ill\Desktop\workspace\1-Mine\7-Csharp-selenium-sample\UiTests\obj\Debug\net10.0\ref\UiTests.dll
+C:\Users\ill\Desktop\workspace\1-Mine\7-Csharp-selenium-sample\UiTests\obj\Debug\net10.0\UiTests.sourcelink.json

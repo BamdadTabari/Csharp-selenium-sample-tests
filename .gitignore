@@ -38,8 +38,8 @@ geckodriver.exe
 msedgedriver.exe
 
 # OR ignore driver folders
-Drivers/
-drivers/
+# Drivers/
+# drivers/
 
 ## Test Results
 TestResults/

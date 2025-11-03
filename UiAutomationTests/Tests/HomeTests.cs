@@ -2,7 +2,7 @@ using AventStack.ExtentReports;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using UiAutomationTests.Reports;
-using UiAutomationTests.Helpers;
+using UiAutomationTests.Utilities;
 
 namespace UiAutomationTests.Tests
 {
@@ -16,7 +16,7 @@ namespace UiAutomationTests.Tests
         [SetUp]
         public void Setup()
         {
-            _extent = ExtentManager.GetExtent();
+            _extent = ExtentManager.GetInstance();
             _test = ExtentManager.CreateTest(TestContext.CurrentContext.Test.Name);
             _driver = new OpenQA.Selenium.Chrome.ChromeDriver();
         }

@@ -1,9 +1,9 @@
+using AventStack.ExtentReports;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using UiAutomationTests.Drivers;
 using UiAutomationTests.Reports;
-using AventStack.ExtentReports;
-using UiAutomationTests.Helpers;
+using UiAutomationTests.Utilities;
 
 namespace UiAutomationTests.Base
 {
@@ -16,45 +16,25 @@ namespace UiAutomationTests.Base
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            Extent = ExtentManager.GetExtent();
+            Extent = ExtentManager.GetInstance();
         }
 
         [SetUp]
         public void Setup()
         {
-            var options = new ChromeOptions();
-            options.AddArgument("--start-maximized");
-            Driver = new ChromeDriver(options);
-
-            Test = ExtentManager.CreateTest(TestContext.CurrentContext.Test.Name);
+            Driver = DriverFactory.CreateDriver("chrome");
         }
 
         [TearDown]
         public void TearDown()
         {
             var status = TestContext.CurrentContext.Result.Outcome.Status;
-            var stacktrace = TestContext.CurrentContext.Result.StackTrace;
-            var message = TestContext.CurrentContext.Result.Message;
             var testName = TestContext.CurrentContext.Test.Name;
 
-            switch (status)
+            if (status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-                case NUnit.Framework.Interfaces.TestStatus.Passed:
-                    Test.Pass("✅ Test passed!");
-                    break;
-                case NUnit.Framework.Interfaces.TestStatus.Failed:
-                    Test.Fail($"❌ Test failed: {message}");
-                    Test.Fail(stacktrace);
-                    string screenshotPath = ScreenshotHelper.CaptureScreenshot(Driver, testName);
-                    if (screenshotPath != null)
-                    {
-                        Test.AddScreenCaptureFromPath(screenshotPath);
-                        Test.Fail($"Test failed — screenshot attached: {testName}");
-                    }
-                    break;
-                default:
-                    Test.Skip("⚠️ Test skipped.");
-                    break;
+                var screenshotPath = ScreenshotHelper.CaptureScreenshot(Driver, testName);
+                Test.Fail("Test failed").AddScreenCaptureFromPath(screenshotPath);
             }
 
             Driver.Quit();

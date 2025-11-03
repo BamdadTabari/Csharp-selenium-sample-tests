@@ -1,27 +1,27 @@
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
-using System;
-using System.IO;
 
 namespace UiAutomationTests.Reports
 {
     public static class ExtentManager
     {
-        private static ExtentReports _extent;
-        private static ExtentTest _test;
+        private static ExtentReports? _extent;
+        private static ExtentTest? _test;
 
-        public static ExtentReports GetExtent()
+        public static ExtentReports GetInstance()
         {
             if (_extent == null)
             {
-                // Get project root instead of bin directory
-                string projectRoot = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+                var reportsPath = Path.Combine(
+                    Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName,
+                    "Reports", "HTMLReports"
+                );
 
-                string reportsDirectory = Path.Combine(projectRoot, "Reports");
-                Directory.CreateDirectory(reportsDirectory);
+                Directory.CreateDirectory(reportsPath);
 
-                string reportPath = Path.Combine(reportsDirectory, $"TestReport_{DateTime.Now:yyyyMMdd_HHmmss}.html");
-                var htmlReporter = new ExtentSparkReporter(reportPath);
+                var htmlReporter = new ExtentSparkReporter(
+                    Path.Combine(reportsPath, $"TestReport_{DateTime.Now:yyyyMMdd_HHmmss}.html")
+                );
 
                 _extent = new ExtentReports();
                 _extent.AttachReporter(htmlReporter);
@@ -30,15 +30,15 @@ namespace UiAutomationTests.Reports
             return _extent;
         }
 
+        public static ExtentTest CreateTest(string testName)
+        {
+            _test = GetInstance().CreateTest(testName);
+            return _test;
+        }
+
         public static void FlushReport()
         {
             _extent?.Flush();
-        }
-
-        public static ExtentTest CreateTest(string testName)
-        {
-            _test = _extent.CreateTest(testName);
-            return _test;
         }
     }
 }
